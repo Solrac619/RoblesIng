@@ -6,7 +6,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [fecha, setFecha] = useState('2026-01-01');
+  const [fecha, setFecha] = useState('2024-01-01');
+  const [fecha_fin, setFecha_fin] = useState('2024-08-30');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, fecha, setFecha }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, fecha, setFecha, fecha_fin, setFecha_fin }}>
       {children}
     </AuthContext.Provider>
   );

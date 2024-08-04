@@ -35,7 +35,7 @@ const PDFLista = () => {
                 >
                   Ver
                 </a>
-               
+              
               </div>
             </li>
           ))

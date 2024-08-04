@@ -7,8 +7,8 @@ const App = () => {
   const [data, setData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const [currentItem, setCurrentItem] = useState({ id: null, cliente: '', ubicacion: '', descripcion: '', fecha_fin: '', empresa_id: 1 });
-  const [newItem, setNewItem] = useState({ cliente: '', ubicacion: '', descripcion: '', fecha_fin: '' , empresa_id: 1});
+  const [currentItem, setCurrentItem] = useState({ id: null, cliente: '', ubicacion: '', descripcion: '', fecha_fin: null, empresa_id: 1 });
+  const [newItem, setNewItem] = useState({ cliente: '', ubicacion: '', descripcion: '', empresa_id: 1 }); // No incluir fecha_fin
 
   const navigate = useNavigate();
 
@@ -79,19 +79,10 @@ const App = () => {
   };
 
   const validateForm = (item) => {
-    if (!item.cliente || !item.ubicacion || !item.descripcion || !item.fecha_fin || !item.empresa_id) {
+    if (!item.cliente || !item.ubicacion || !item.descripcion || !item.empresa_id) {
       Swal.fire(
         'Error',
         'Todos los campos son obligatorios.',
-        'error'
-      );
-      return false;
-    }
-
-    if (isNaN(Date.parse(item.fecha_fin))) {
-      Swal.fire(
-        'Error',
-        'Fecha inválida.',
         'error'
       );
       return false;
@@ -143,7 +134,7 @@ const App = () => {
         body: JSON.stringify(newItem),
       });
       fetchProyectos();
-      setNewItem({ cliente: '', ubicacion: '', descripcion: '', fecha_fin: '', empresa_id: '' });
+      setNewItem({ cliente: '', ubicacion: '', descripcion: '', empresa_id: '' });
       setIsAdding(false);
       Swal.fire(
         '¡Agregado!',
@@ -198,13 +189,6 @@ const App = () => {
                 value={newItem.descripcion}
                 onChange={handleAddInputChange}
                 placeholder="Descripción"
-                className="mb-2 p-2 border rounded w-full"
-              />
-              <input
-                type="date"
-                name="fecha_fin"
-                value={newItem.fecha_fin}
-                onChange={handleAddInputChange}
                 className="mb-2 p-2 border rounded w-full"
               />
               <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full">Agregar</button>
@@ -277,7 +261,7 @@ const App = () => {
               <input
                 type="date"
                 name="fecha_fin"
-                value={currentItem.fecha_fin}
+                value={currentItem.fecha_fin || ''}
                 onChange={handleInputChange}
                 className="mb-2 p-2 border rounded w-full"
               />
